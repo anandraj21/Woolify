@@ -21,23 +21,66 @@ $farmerId = $farmerData['id'];
 $woolBatchModel = new WoolBatch();
 $productionTrends = [];
 $qualityMetrics = [];
-$overallStats = null; // Using the stats method we created for quality_control
+$overallStats = null;
 $fetchError = '';
 
 try {
-    // Use existing methods (adjust months if needed)
-    $productionTrends = $woolBatchModel->getProductionTrends($farmerId, 6);
-    $qualityMetrics = $woolBatchModel->getQualityMetrics($farmerId);
-    $overallStats = $woolBatchModel->getOverallQualityStats($farmerId);
+    // Get basic batch data with a simple query
+    $dbInstance = Database::getInstance();
+    $query = "SELECT * FROM wool_batches WHERE farmer_id = ?";
+    $stmt = $dbInstance->query($query, [$farmerId]);
+    $farmerBatches = $stmt->fetchAll();
+    
+    if (empty($farmerBatches)) {
+        $fetchError = "No wool batches found for your farm. Add some batches to see analytics.";
+    } else {
+        // Calculate production trends
+        $trendQuery = "SELECT 
+            DATE_FORMAT(created_at, '%Y-%m') as month,
+            SUM(quantity) as total_weight,
+            COUNT(*) as batch_count
+            FROM wool_batches 
+            WHERE farmer_id = ? 
+            AND created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+            GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+            ORDER BY month DESC";
+        $productionTrends = $dbInstance->query($trendQuery, [$farmerId])->fetchAll();
+
+        // Calculate quality metrics
+        $qualityQuery = "SELECT 
+            grade,
+            COUNT(*) as batch_count,
+            AVG(micron) as avg_micron
+            FROM wool_batches 
+            WHERE farmer_id = ?
+            GROUP BY grade";
+        $qualityMetrics = $dbInstance->query($qualityQuery, [$farmerId])->fetchAll();
+
+        // Calculate overall stats
+        $overallStats = [
+            'total_batches' => count($farmerBatches),
+            'total_weight' => array_sum(array_column($farmerBatches, 'quantity')),
+            'avg_micron' => array_sum(array_column($farmerBatches, 'micron')) / count($farmerBatches)
+        ];
+    }
+} catch (PDOException $e) {
+    error_log("Database error in farm_analytics.php: " . $e->getMessage());
+    $fetchError = "Database error occurred. Please try again later.";
 } catch (Exception $e) {
-    error_log("Error fetching analytics data for farmer {$farmerId}: " . $e->getMessage());
-    $fetchError = "Could not retrieve analytics data. Please try again later.";
+    error_log("Error in farm_analytics.php: " . $e->getMessage());
+    $fetchError = "An unexpected error occurred. Please try again later.";
 }
 
-// Prepare data for potential charts (optional)
-$trendLabels = json_encode(array_column($productionTrends, 'month'));
-$trendWeightData = json_encode(array_column($productionTrends, 'total_weight'));
-$trendCountData = json_encode(array_column($productionTrends, 'batch_count'));
+// Prepare chart data only if we have production trends
+$trendLabels = [];
+$trendWeightData = [];
+$trendCountData = [];
+
+if (!empty($productionTrends)) {
+    $trendLabels = json_encode(array_column($productionTrends, 'month'));
+    $trendWeightData = json_encode(array_column($productionTrends, 'total_weight'));
+    $trendCountData = json_encode(array_column($productionTrends, 'batch_count'));
+}
 
 include __DIR__ . '/../includes/header.php'; 
 ?>
@@ -206,5 +249,5 @@ if (!empty($productionTrends)) {
 
 */
 
-include __DIR__ . '/../includes/footer.php'; 
+// include __DIR__ . '/../includes/footer.php'; 
 ?> 

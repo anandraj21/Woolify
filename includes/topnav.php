@@ -59,13 +59,77 @@ $retailerPath = $rootPath . 'retailer/'; // Path to retailer-specific actions
            <button class="btn btn-icon dropdown-toggle" type="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                <i class="fas fa-cog"></i>
            </button>
-           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
-                <li><a class="dropdown-item" href="<?php echo $rootPath; ?>profile.php">Profile</a></li>
-                <li><a class="dropdown-item" href="<?php echo $rootPath . ($user['role'] === 'FARMER' ? 'farmer/' : 'retailer/'); ?>settings.php">Settings</a></li>
-                <li><a class="dropdown-item" href="<?php echo $rootPath . ($user['role'] === 'FARMER' ? 'farmer/' : 'retailer/'); ?>help.php">Help Center</a></li>
+           <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="settingsDropdown">
+                <li><a class="dropdown-item d-flex align-items-center" href="<?php echo $rootPath; ?>profile.php">
+                    <i class="fas fa-user me-2"></i>Profile</a></li>
+                <li><a class="dropdown-item d-flex align-items-center" href="<?php echo $rootPath . ($user['role'] === 'FARMER' ? 'farmer/' : 'retailer/'); ?>settings.php">
+                    <i class="fas fa-cog me-2"></i>Settings</a></li>
+                <li><a class="dropdown-item d-flex align-items-center" href="<?php echo $rootPath . ($user['role'] === 'FARMER' ? 'farmer/' : 'retailer/'); ?>help.php">
+                    <i class="fas fa-question-circle me-2"></i>Help Center</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="<?php echo $rootPath; ?>logout.php">Logout</a></li>
+                <li><a class="dropdown-item d-flex align-items-center text-danger" href="<?php echo $rootPath; ?>logout.php">
+                    <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
            </ul>
        </div>
    </div>
 </nav>
+
+<!-- Add necessary styles and scripts -->
+<style>
+/* Dropdown styles */
+.dropdown-menu {
+    min-width: 200px;
+    border: 0;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    border-radius: 0.5rem;
+}
+
+.dropdown-item {
+    padding: 0.7rem 1.2rem;
+    color: #2c3e50;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #f8f9fa;
+    color: #0d6efd;
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: #fff5f5;
+    color: #dc3545;
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #2c3e50;
+}
+
+.btn-icon:hover {
+    background-color: #f8f9fa;
+}
+
+.btn-icon.dropdown-toggle::after {
+    display: none;
+}
+</style>
+
+<script>
+// Initialize dropdowns when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Load Bootstrap's dropdown component
+    if (typeof bootstrap !== 'undefined') {
+        var dropdowns = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+        dropdowns.map(function (dropdownToggle) {
+            return new bootstrap.Dropdown(dropdownToggle);
+        });
+    }
+});
+</script>

@@ -13,6 +13,14 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- Wool types table
+CREATE TABLE IF NOT EXISTS wool_types (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    type_name VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Farms table
 CREATE TABLE IF NOT EXISTS farms (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -30,6 +38,7 @@ CREATE TABLE IF NOT EXISTS farms (
 CREATE TABLE IF NOT EXISTS wool_batches (
     id INT PRIMARY KEY AUTO_INCREMENT,
     farm_id INT NOT NULL,
+    wool_type_id INT NOT NULL,
     batch_number VARCHAR(50) UNIQUE NOT NULL,
     shearing_date DATE NOT NULL,
     weight_kg DECIMAL(10,2) NOT NULL,
@@ -38,7 +47,8 @@ CREATE TABLE IF NOT EXISTS wool_batches (
     notes TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (farm_id) REFERENCES farms(id) ON DELETE CASCADE
+    FOREIGN KEY (farm_id) REFERENCES farms(id) ON DELETE CASCADE,
+    FOREIGN KEY (wool_type_id) REFERENCES wool_types(id) ON DELETE CASCADE
 );
 
 -- Processing facilities table
@@ -118,15 +128,6 @@ CREATE TABLE IF NOT EXISTS batch_tracking_history (
     FOREIGN KEY (action_by) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Create indexes for better performance
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_batches_number ON wool_batches(batch_number);
-CREATE INDEX idx_batches_status ON wool_batches(status);
-CREATE INDEX idx_batch_tracking ON batch_tracking_history(batch_id, action_date);
-
--- Add role column to users table
-ALTER TABLE users ADD COLUMN role ENUM('farmer', 'retailer') NOT NULL AFTER email;
-
 -- Create a new table for batch_access to manage retailer access
 CREATE TABLE IF NOT EXISTS batch_access (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -149,7 +150,11 @@ CREATE TABLE IF NOT EXISTS batch_stages (
     FOREIGN KEY (batch_id) REFERENCES wool_batches(id) ON DELETE CASCADE
 );
 
--- Add indexes for better performance
+-- Create indexes for better performance
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_batches_number ON wool_batches(batch_number);
+CREATE INDEX idx_batches_status ON wool_batches(status);
+CREATE INDEX idx_batch_tracking ON batch_tracking_history(batch_id, action_date);
 CREATE INDEX idx_user_role ON users(role);
 CREATE INDEX idx_batch_access_retailer ON batch_access(retailer_id);
 CREATE INDEX idx_batch_stages_batch ON batch_stages(batch_id);

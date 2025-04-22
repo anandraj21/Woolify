@@ -183,10 +183,206 @@ include __DIR__ . '/../includes/header.php';
 ?>
 
     <div class="dashboard-container">
-    <?php include __DIR__ . '/../includes/sidebar.php'; // Sidebar should show retailer links now ?>
+    <aside class="sidebar">
+    <div class="sidebar-header">
+        <a href="../index.php" class="woolify-brand">
+            <img src="../public/assets/images/logo.png" alt="Woolify" class="sidebar-logo">
+            <span>Woolify</span>
+        </a>
+        <button class="sidebar-toggle btn btn-link d-lg-none">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <style>
+    /* Enhanced Brand Styling */
+    .sidebar-header {
+        padding: 1.25rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        background: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sidebar-toggle {
+        color: #5F975F;
+        transition: color 0.3s ease;
+        padding: 0.5rem;
+    }
+
+    .sidebar-toggle:hover {
+        color: #4C794C;
+    }
+
+    .woolify-brand {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 0.5rem;
+    }
+
+    .woolify-brand img {
+        height: 40px;
+        width: auto;
+        border-radius: 8px;
+    }
+
+    .woolify-brand span {
+        font-size: 24px;
+        color: #5F975F;
+        font-weight: 600;
+        margin-left: 12px;
+        font-family: 'Inter', sans-serif;
+        letter-spacing: -0.5px;
+    }
+
+    .woolify-brand:hover {
+        text-decoration: none;
+    }
+
+    .woolify-brand:hover span {
+        color: #4C794C;
+    }
+    </style>
+        
+        <nav class="sidebar-nav">
+            <!-- General Section -->
+            <div class="nav-section">
+                <h6 class="nav-section-title">GENERAL</h6>
+                <a href="dashboard.php" class="nav-link active">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+            </div>
+
+            <!-- Wool Management -->
+            <div class="nav-section">
+                <h6 class="nav-section-title">WOOL MANAGEMENT</h6>
+                <a href="browse_batches.php" class="nav-link">
+                    <i class="fas fa-box"></i> Browse Batches
+                </a>
+                <a href="my_purchases.php" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i> My Purchases
+                </a>
+                <!-- <a href="inventory.php" class="nav-link">
+                    <i class="fas fa-warehouse"></i> Inventory
+                </a> -->
+                <!-- <a href="order_planning.php" class="nav-link">
+                    <i class="fas fa-clipboard-list"></i> Order Planning
+                </a> -->
+            </div>
+
+            <!-- Analytics & Reports -->
+            <div class="nav-section">
+                <h6 class="nav-section-title">ANALYTICS & REPORTS</h6>
+                <a href="purchase_analytics.php" class="nav-link">
+                    <i class="fas fa-chart-line"></i> Purchase Analytics
+                </a>
+                <!-- <a href="quality_reports.php" class="nav-link">
+                    <i class="fas fa-certificate"></i> Quality Reports
+                </a>
+                <a href="price_tracking.php" class="nav-link">
+                    <i class="fas fa-tags"></i> Price Tracking
+                </a>
+                <a href="market_analysis.php" class="nav-link">
+                    <i class="fas fa-chart-bar"></i> Market Analysis
+                </a> -->
+            </div>
+
+            <!-- Supplier Management -->
+            <div class="nav-section">
+                <h6 class="nav-section-title">SUPPLIER MANAGEMENT</h6>
+                <a href="farms_connected.php" class="nav-link">
+                    <i class="fas fa-handshake"></i> Connected Farms
+                </a>
+                <a href="access_requests.php" class="nav-link">
+                    <i class="fas fa-user-plus"></i> Access Requests
+                </a>
+                <a href="supplier_ratings.php" class="nav-link">
+                    <i class="fas fa-star"></i> Supplier Ratings
+                </a>
+            </div>
+
+            <!-- Account Management -->
+            <div class="nav-section">
+                <h6 class="nav-section-title">ACCOUNT</h6>
+                <a href="../profile.php" class="nav-link">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+                <a href="settings.php" class="nav-link">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+                <a href="../notifications.php" class="nav-link">
+                    <i class="fas fa-bell"></i> Notifications
+                    <?php if ($unreadNotifications > 0): ?>
+                        <span class="badge bg-danger rounded-pill ms-auto"><?php echo $unreadNotifications; ?></span>
+                    <?php endif; ?>
+                </a>
+                <a href="help.php" class="nav-link">
+                    <i class="fas fa-question-circle"></i> Help
+                </a>
+                <a href="../logout.php" class="nav-link text-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </nav>
+    </aside>
     
     <main class="main-content">
-        <?php include __DIR__ . '/../includes/topnav.php'; // Topnav should show retailer actions ?>
+        <!-- Top Navigation Bar -->
+        <nav class="top-nav shadow-sm">
+            <div class="nav-left">
+                <button class="sidebar-toggle btn btn-link me-2 d-lg-none"> <!-- Button to toggle sidebar on small screens -->
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title"><?php echo $pageTitle; ?></h1>
+            </div>
+            <div class="nav-right">
+                <!-- User Profile -->
+                <div class="nav-item user-profile me-3">
+                    <div class="d-flex align-items-center">
+                        <div class="user-info me-3">
+                            <div class="user-name"><?php echo htmlspecialchars($user['name']); ?></div>
+                            <div class="user-role">Retailer</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notifications -->
+                <div class="nav-item position-relative me-2">
+                    <a href="../notifications.php" class="btn btn-icon position-relative" id="topnav-notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span id="topnav-notification-bubble">
+                        <?php if ($unreadNotifications > 0): ?>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge">
+                                <?php echo $unreadNotifications; ?>
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        <?php endif; ?>
+                        </span>
+                    </a>
+                </div>
+
+               <!-- Settings Dropdown -->
+               <div class="nav-item dropdown">
+                    <button class="btn btn-icon" type="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="settingsDropdown">
+                        <li><a class="dropdown-item d-flex align-items-center" href="../profile.php">
+                            <i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item d-flex align-items-center" href="settings.php">
+                            <i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><a class="dropdown-item d-flex align-items-center" href="help.php">
+                            <i class="fas fa-question-circle me-2"></i>Help Center</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item d-flex align-items-center text-danger" href="../logout.php">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
         
         <div class="dashboard-content">
             <!-- Quick Stats -->
@@ -194,7 +390,7 @@ include __DIR__ . '/../includes/header.php';
                  <div class="stat-card"> <div class="stat-icon bg-primary bg-opacity-10"><i class="fas fa-store text-primary"></i></div> <div class="stat-info"> <div class="stat-label">Store Name</div> <div class="stat-value"><?php echo htmlspecialchars($retailerData['store_name']); ?></div> <div class="stat-change"><?php echo htmlspecialchars($retailerData['store_address']); ?></div> </div> </div>
                  <div class="stat-card"> <div class="stat-icon bg-success bg-opacity-10"><i class="fas fa-shopping-cart text-success"></i></div> <div class="stat-info"> <div class="stat-label">Completed Purchases</div> <div class="stat-value"><?php echo number_format($purchasedBatchesCount); ?></div> <div class="stat-change"><?php echo number_format($pendingPurchasesCount); ?> pending</div> </div> </div>
                  <div class="stat-card"> <div class="stat-icon bg-info bg-opacity-10"><i class="fas fa-boxes text-info"></i></div> <div class="stat-info"> <div class="stat-label">Available Batches</div> <div class="stat-value"><?php echo number_format($availableBatchesCount); ?></div> <div class="stat-change"><a href="#available-batches">Browse Now</a></div> </div> </div>
-                 <div class="stat-card"> <div class="stat-icon bg-warning bg-opacity-10"><i class="fas fa-link text-warning"></i></div> <div class="stat-info"> <div class="stat-label">Connected Farms</div> <div class="stat-value"><?php echo number_format($connectedFarmsCount); ?></div> <div class="stat-change"><?php echo number_format($pendingAccessRequestsCount); ?> pending requests</div> </div> </div>
+                 <!-- <div class="stat-card"> <div class="stat-icon bg-warning bg-opacity-10"><i class="fas fa-link text-warning"></i></div> <div class="stat-info"> <div class="stat-label">Connected Farms</div> <div class="stat-value"><?php echo number_format($connectedFarmsCount); ?></div> <div class="stat-change"><?php echo number_format($pendingAccessRequestsCount); ?> pending requests</div> </div> </div> -->
             </div>
 
             <!-- Available Batches Table -->
@@ -341,13 +537,13 @@ include __DIR__ . '/../includes/header.php';
         </main>
     </div>
 
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+<!-- <?php include __DIR__ . '/../includes/footer.php'; ?> -->
 
     <script>
 // Add Retailer-specific JS if needed (e.g., chart initialization)
 
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Purchase Request Modal Logic ---
+    // Enhanced Purchase Request Modal Logic
     const purchaseModal = new bootstrap.Modal(document.getElementById('purchaseRequestModal'));
     const requestButtons = document.querySelectorAll('.request-purchase-btn');
 
@@ -359,28 +555,35 @@ document.addEventListener('DOMContentLoaded', function() {
             const price = parseFloat(this.dataset.price);
             const totalPrice = (quantity * price).toFixed(2);
 
+            // Enhanced Modal Population
             document.getElementById('modal-batch-id').textContent = batchId;
             document.getElementById('modal-farmer-name').textContent = farmerName;
             document.getElementById('modal-quantity').textContent = quantity.toFixed(1);
             document.getElementById('modal-price').textContent = price.toFixed(2);
             document.getElementById('modal-total-price').textContent = totalPrice;
 
-            // Set form values
-            document.getElementById('form-batch-id').value = batchId;
-            document.getElementById('form-quantity').value = quantity;
-             document.getElementById('form-price').value = price;
+            // Set form values with validation
+            const formBatchId = document.getElementById('form-batch-id');
+            const formQuantity = document.getElementById('form-quantity');
+            const formPrice = document.getElementById('form-price');
+
+            if (formBatchId && formQuantity && formPrice) {
+                formBatchId.value = batchId;
+                formQuantity.value = quantity;
+                formPrice.value = price;
+            }
 
             purchaseModal.show();
         });
     });
 
-    // --- Basic Notification Polling (Copied from farmer dashboard - ensure API path is correct) ---
+    // Enhanced Notification System
     const notificationIconBubble = document.getElementById('topnav-notification-bubble');
     const sidebarNotificationCount = document.getElementById('sidebar-notification-count');
     
     function updateNotificationCount(count) {
          const bubbleHtml = count > 0 ? 
-            `<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6em; padding: 0.3em 0.5em;">${count}<span class="visually-hidden">unread messages</span></span>` : '';
+            `<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge">${count}<span class="visually-hidden">unread notifications</span></span>` : '';
          const sidebarHtml = count > 0 ? 
             `<span class="badge rounded-pill bg-danger ms-auto">${count}</span>` : '';
          
@@ -388,8 +591,9 @@ document.addEventListener('DOMContentLoaded', function() {
          if (sidebarNotificationCount) sidebarNotificationCount.innerHTML = sidebarHtml;
     }
 
+    // Enhanced Notification Polling with Error Handling
     function checkNotifications() {
-         fetch('../api/get_notification_count.php') // Path relative to retailer/dashboard.php
+        fetch('../api/get_notification_count.php')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -400,7 +604,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data && typeof data.unread_count !== 'undefined') {
                     updateNotificationCount(data.unread_count);
                 } else {
-                     console.error('Invalid notification count data received:', data);
+                    console.warn('Invalid notification count data received:', data);
                 }
             })
             .catch(error => {
@@ -408,8 +612,666 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    // Initialize notifications
+    checkNotifications();
     const notificationInterval = setInterval(checkNotifications, 30000); 
-    // Initial check can be added if needed
-     // checkNotifications(); 
+
+    // Enhanced Mobile Responsiveness
+    const sidebarToggle = document.querySelector('.sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+    
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('show');
+            mainContent.classList.toggle('sidebar-shown');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth <= 992 && 
+                !sidebar.contains(event.target) && 
+                !sidebarToggle.contains(event.target) && 
+                sidebar.classList.contains('show')) {
+                sidebar.classList.remove('show');
+                mainContent.classList.remove('sidebar-shown');
+            }
+        });
+    }
+
+    // Enhanced Table Responsiveness
+    const tables = document.querySelectorAll('.table');
+    tables.forEach(table => {
+        if (!table.parentElement.classList.contains('table-responsive')) {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('table-responsive');
+            table.parentNode.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
+        }
+    });
+});
+</script>
+
+<style>
+/* Enhanced Dashboard Styles */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --info-color: #0dcaf0;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --sidebar-width: 280px;
+}
+
+/* Dashboard Layout Enhancements */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background: var(--light-color);
+}
+
+/* Enhanced Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    z-index: 1030;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    background: linear-gradient(to right, #f8f9fa, #ffffff);
+}
+
+.logo-text {
+    text-align: center;
+}
+
+.logo-brand {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+}
+
+.logo-role {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Enhanced Navigation */
+.nav-section {
+    padding: 1rem 0;
+}
+
+.nav-section-title {
+    padding: 0.75rem 1.5rem;
+    color: var(--secondary-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.nav-link {
+    padding: 0.75rem 1.5rem;
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-link:hover {
+    background: rgba(13, 110, 253, 0.05);
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+}
+
+.nav-link.active {
+    background: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+    font-weight: 500;
+}
+
+.nav-link i {
+    width: 20px;
+    margin-right: 12px;
+    font-size: 1.1rem;
+}
+
+/* Enhanced Main Content */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Enhanced Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.25rem;
+    font-size: 1.5rem;
+}
+
+.stat-info {
+    flex-grow: 1;
+}
+
+.stat-label {
+    color: var(--secondary-color);
+    font-size: 0.875rem;
+    margin-bottom: 0.375rem;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.25rem;
+}
+
+.stat-change {
+    font-size: 0.875rem;
+    color: var(--secondary-color);
+}
+
+/* Enhanced Table Sections */
+.table-section {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.section-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    background: linear-gradient(to right, #f8f9fa, #ffffff);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin: 0;
+}
+
+/* Enhanced Filter Form */
+.filter-form {
+    background: linear-gradient(to right, #f8f9fa, #ffffff);
+    border-radius: 8px;
+    margin: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Enhanced Table Styles */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    color: var(--dark-color);
+    background: #f8f9fa;
+    padding: 1rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0,0,0,0.02);
+}
+
+/* Enhanced Buttons */
+.btn {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Enhanced Badges */
+.badge {
+    padding: 0.5em 0.75em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}
+
+/* Enhanced Navbar */
+.navbar {
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    padding: 1rem 1.5rem;
+}
+
+.navbar .dropdown-menu {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: none;
+    border-radius: 8px;
+}
+
+.navbar .dropdown-item {
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+}
+
+/* User Profile Dropdown */
+.navbar .dropdown-toggle {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.navbar .dropdown-toggle:hover {
+    background-color: rgba(0,0,0,0.02);
+}
+
+.navbar .dropdown-toggle .fw-bold {
+    font-size: 0.95rem;
+    line-height: 1.2;
+}
+
+.navbar .dropdown-toggle small {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* Enhanced Notifications */
+.notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Top Navigation Styles */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* User Profile Styles */
+.user-profile {
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.user-info {
+    text-align: right;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.user-role {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Button Styles */
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    color: #2c3e50;
+    transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+    background-color: rgba(0,0,0,0.05);
+    color: #0d6efd;
+}
+
+/* Notification Badge */
+.notification-badge {
+    font-size: 0.65rem !important;
+    padding: 0.25em 0.6em !important;
+    min-width: 1rem;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    min-width: 200px;
+    padding: 0.5rem 0;
+    margin: 0;
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    border-radius: 0.5rem;
+}
+
+.dropdown-item {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: rgba(13, 110, 253, 0.05);
+    color: #0d6efd;
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: rgba(220, 53, 69, 0.05);
+    color: #dc3545;
+}
+
+.dropdown-divider {
+    margin: 0.5rem 0;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    background: transparent;
+    border: none;
+    color: #2c3e50;
+}
+
+.btn-icon:hover, .btn-icon:focus {
+    background-color: rgba(0,0,0,0.05);
+    color: #0d6efd;
+}
+
+.btn-icon.show {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+}
+
+/* Ensure dropdown is above other elements */
+.dropdown-menu.show {
+    z-index: 1050;
+    animation: dropdownFade 0.2s ease;
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .user-info {
+        display: none;
+    }
+    
+    .page-title {
+        font-size: 1.25rem;
+    }
+}
+</style>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Bootstrap components
+    var dropdownElementList = document.querySelectorAll('.dropdown-toggle, [data-bs-toggle="dropdown"]');
+    dropdownElementList.forEach(function(dropdownToggle) {
+        new bootstrap.Dropdown(dropdownToggle, {
+            boundary: 'window'
+        });
+    });
+
+    // Add click handler for the settings dropdown
+    const settingsDropdown = document.getElementById('settingsDropdown');
+    if (settingsDropdown) {
+        settingsDropdown.addEventListener('click', function(e) {
+            const dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
+            dropdown.toggle();
+        });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.matches('#settingsDropdown, #settingsDropdown *')) {
+            const dropdown = bootstrap.Dropdown.getInstance(settingsDropdown);
+            if (dropdown && document.querySelector('.dropdown-menu.show')) {
+                dropdown.hide();
+            }
+        }
+    });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all dropdowns
+    var dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+    dropdownElementList.forEach(function(dropdownToggle) {
+        new bootstrap.Dropdown(dropdownToggle, {
+            boundary: 'window'
+        });
+    });
+
+    // Add click handler for the settings dropdown specifically
+    const settingsDropdown = document.getElementById('settingsDropdown');
+    if (settingsDropdown) {
+        settingsDropdown.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const dropdown = bootstrap.Dropdown.getOrCreateInstance(settingsDropdown);
+            dropdown.toggle();
+        });
+    }
         });
     </script>
+
+<style>
+/* Enhanced dropdown styles */
+.dropdown-menu {
+    margin-top: 0.5rem;
+    min-width: 200px;
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    border-radius: 0.5rem;
+}
+
+.dropdown-item {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: rgba(13, 110, 253, 0.05);
+    color: #0d6efd;
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: rgba(220, 53, 69, 0.05);
+    color: #dc3545;
+}
+
+.dropdown-divider {
+    margin: 0.5rem 0;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Ensure dropdown is visible */
+.dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, 0) !important;
+    z-index: 1050;
+}
+
+/* Button styles */
+.btn-icon.dropdown-toggle::after {
+    display: none;
+}
+
+.btn-icon {
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    background: transparent;
+    border: none;
+    color: #2c3e50;
+}
+
+.btn-icon:hover, .btn-icon:focus {
+    background-color: rgba(0,0,0,0.05);
+    color: #0d6efd;
+}
+</style>

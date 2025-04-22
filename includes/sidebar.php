@@ -34,12 +34,76 @@ $rootPath = $isSubDir ? '../' : '';
 ?>
 <aside class="sidebar shadow-sm">
     <div class="sidebar-header">
-        <a href="<?php echo $rootPath; ?>dashboard.php"><img src="<?php echo $rootPath; ?>img/logo.png" alt="Woolify" class="sidebar-logo"></a>
+        <a href="<?php echo $rootPath; ?>index.php" class="woolify-brand">
+            <img src="<?php echo $rootPath; ?>public/assets/images/logo.png" alt="Woolify">
+            <span>Woolify</span>
+        </a>
         <button class="sidebar-toggle btn btn-link d-lg-none"> 
             <i class="fas fa-bars"></i>
         </button>
     </div>
     
+    <style>
+    /* Enhanced Brand Styling */
+    .brand-link,
+    .brand-logo,
+    .brand-text,
+    .space-x-3 {
+        display: none;
+    }
+
+    /* Enhance sidebar header */
+    .sidebar-header {
+        padding: 1.25rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        background: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Improve sidebar toggle button */
+    .sidebar-toggle {
+        color: #5F975F;
+        transition: color 0.3s ease;
+        padding: 0.5rem;
+    }
+
+    .sidebar-toggle:hover {
+        color: #4C794C;
+    }
+
+    .woolify-brand {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 0.5rem;
+    }
+
+    .woolify-brand img {
+        height: 40px;
+        width: auto;
+        border-radius: 8px;
+    }
+
+    .woolify-brand span {
+        font-size: 24px;
+        color: #5F975F;
+        font-weight: 600;
+        margin-left: 12px;
+        font-family: 'Inter', sans-serif;
+        letter-spacing: -0.5px;
+    }
+
+    .woolify-brand:hover {
+        text-decoration: none;
+    }
+
+    .woolify-brand:hover span {
+        color: #4C794C;
+    }
+    </style>
+
     <div class="sidebar-user">
          <a href="<?php echo $rootPath; ?>profile.php" class="d-flex align-items-center text-decoration-none text-dark">
             <img src="<?php echo $rootPath . htmlspecialchars($user['profile_image'] ?? 'img/avatar-placeholder.png'); ?>" alt="User" class="user-avatar">
@@ -82,6 +146,9 @@ $rootPath = $isSubDir ? '../' : '';
                  <a href="<?php echo $farmerBasePath; ?>reports.php" class="nav-link <?php echo $current_page == 'reports.php' ? 'active' : ''; ?>"> <i class="fas fa-file-alt"></i> <span>Reports</span> </a>
                  <a href="<?php echo $farmerBasePath; ?>export_data.php" class="nav-link <?php echo $current_page == 'export_data.php' ? 'active' : ''; ?>"> <i class="fas fa-download"></i> <span>Export Data</span> </a>
              </div>
+             <div class="nav-section">
+                 <div class="nav-section-header">NAVIGATION</div>
+             </div>
 
         <?php elseif ($user_role === 'RETAILER'): ?>
             <!-- Retailer Navigation (Corrected Paths) -->
@@ -96,6 +163,9 @@ $rootPath = $isSubDir ? '../' : '';
                  <div class="nav-section-header">FARMS & REQUESTS</div>
                  <a href="<?php echo $retailerBasePath; ?>farms_connected.php" class="nav-link <?php echo $current_page == 'farms_connected.php' ? 'active' : ''; ?>"> <i class="fas fa-link"></i> <span>Connected Farms</span> </a>
                  <a href="<?php echo $retailerBasePath; ?>access_requests.php" class="nav-link <?php echo $current_page == 'access_requests.php' ? 'active' : ''; ?>"> <i class="fas fa-clock"></i> <span>My Access Requests</span> </a>
+             </div>
+             <div class="nav-section">
+                 <div class="nav-section-header">NAVIGATION</div>
              </div>
 
         <?php else: ?>

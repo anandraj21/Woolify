@@ -576,7 +576,7 @@ $batchCount = $stmt->fetch()['batch_count'];
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center space-x-4">
                     <a href="#" class="flex items-center space-x-3 group">
-                        <img src="assets/images/logo.png" alt="Woolify" class="h-10 w-auto group-hover:scale-105 transition-transform rounded-3xl">
+                        <img src="public/assets/images/logo.png" alt="Woolify" class="h-10 w-auto group-hover:scale-105 transition-transform rounded-3xl">
                         <span class="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">Woolify</span>
                     </a>
                 </div>
@@ -587,7 +587,7 @@ $batchCount = $stmt->fetch()['batch_count'];
                     <a href="#impact" class="nav-link">Impact</a>
                     <div class="relative group">
                         <button class="nav-link flex items-center">
-                            Resources
+                            <a href="resources/index.php"> Resources</a>
                             <svg class="w-4 h-4 ml-1 transform group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
@@ -612,24 +612,24 @@ $batchCount = $stmt->fetch()['batch_count'];
                 </button>
             </div>
         </div>
-
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden" id="mobileMenu">
-            <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
-                <a href="#journey" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg">Journey</a>
-                <a href="#features" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg">Features</a>
-                <a href="#impact" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg">Impact</a>
-                <a href="login.php" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg">Login</a>
-                <a href="register.php" class="block px-3 py-2 text-base font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg">Get Started</a>
-            </div>
-        </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden" id="mobileMenu">
+        <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
+            <a href="#journey" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg">Journey</a>
+            <a href="#features" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg">Features</a>
+            <a href="#impact" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg">Impact</a>
+            <a href="login.php" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg">Login</a>
+            <a href="register.php" class="block px-3 py-2 text-base font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg">Get Started</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-primary-50 to-white">
         <!-- Background Video -->   
         <video class="absolute top-0 left-0 w-full h-full object-cover opacity-100" autoplay loop muted playsinline>
-            <source src="assets/videos/hero-bg2.mp4" type="video/mp4">
+            <source src="public/assets/videos/hero-bg2.mp4" type="video/mp4">
         </video>
 
         <!-- Animated Background Shapes -->
@@ -676,7 +676,7 @@ $batchCount = $stmt->fetch()['batch_count'];
                 </div>
 
                 <!-- Trust Badges -->
-                <div class="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
+                <!-- <div class="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
                     <div class="flex items-center justify-center">
                         <img class="h-12 opacity-50 hover:opacity-100 transition-opacity" src="assets/images/trust-badge-1.svg" alt="Certification 1">
                     </div>
@@ -689,7 +689,7 @@ $batchCount = $stmt->fetch()['batch_count'];
                     <div class="flex items-center justify-center">
                         <img class="h-12 opacity-50 hover:opacity-100 transition-opacity" src="assets/images/trust-badge-4.svg" alt="Certification 4">
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -1178,7 +1178,7 @@ $batchCount = $stmt->fetch()['batch_count'];
                 <!-- Company Info -->
                 <div class="space-y-6">
                     <div class="flex items-center space-x-3">
-                        <img src="assets/images/logo.png" alt="Woolify" class="h-8 w-auto rounded-3xl">
+                        <img src="public/assets/images/logo.png" alt="Woolify" class="h-8 w-auto rounded-3xl">
                         <span class="text-2xl font-bold">Woolify</span>
                     </div>
                     <p class="text-gray-400 text-sm">

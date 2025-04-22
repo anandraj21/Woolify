@@ -116,5 +116,5 @@ include __DIR__ . '/../includes/header.php';
 </div>
 <?php 
 // Optional: Add Chart.js integration here if desired later
-include __DIR__ . '/../includes/footer.php'; 
+// include __DIR__ . '/../includes/footer.php'; 
 ?> 

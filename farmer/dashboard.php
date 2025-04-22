@@ -209,14 +209,45 @@ function getCapacityClass($utilization) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Include Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script> 
+    <style>
+        .woolify-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .woolify-brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        .woolify-brand span {
+            font-size: 24px;
+            color: #5F975F;
+            font-weight: 600;
+            margin-left: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .woolify-brand:hover {
+            text-decoration: none;
+        }
+
+        .woolify-brand:hover span {
+            color: #4C794C;
+        }
+    </style>
 </head>
 <body class="bg-light">
     <div class="dashboard-container">
         <!-- Sidebar -->
         <aside class="sidebar shadow-sm">
             <div class="sidebar-header">
-                <!-- Make logo clickable link to dashboard -->
-                <a href="dashboard.php"><img src="../img/logo.png" alt="Woolify" class="sidebar-logo"></a>
+                <!-- Make logo clickable link to home page -->
+                <a href="../index.php" class="woolify-brand">
+                    <img src="../public/assets/images/logo.png" alt="Woolify">
+                    <span>Woolify</span>
+                </a>
                 <button class="sidebar-toggle btn btn-link d-lg-none"> <!-- Show toggle on smaller screens -->
                     <i class="fas fa-bars"></i>
                 </button>

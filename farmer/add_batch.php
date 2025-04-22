@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
                 'farmer_id' => $farmerId,
                 'quantity' => $quantity,
-                'micron' => $micron,
+                'micron' => $micron,                    
                 'grade' => strtoupper($grade),
                 'status' => $status,
                 'price_per_kg' => $price,
@@ -85,52 +85,129 @@ include __DIR__ . '/../includes/header.php';
     <main class="main-content">
         <?php include __DIR__ . '/../includes/topnav.php'; ?>
         <div class="dashboard-content">
-            <h1><?php echo $pageTitle; ?></h1>
-
-            <?php if ($success): ?>
-                <div class="alert alert-success" role="alert"><?php echo $success; ?></div>
-            <?php endif; ?>
-            <?php if ($error): ?>
-                <div class="alert alert-danger" role="alert"><?php echo $error; ?></div>
-            <?php endif; ?>
-
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Enter New Batch Details</h5>
-                    <form method="POST" action="add_batch.php" class="mt-3">
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Quantity (kg)</label>
-                            <input type="number" step="0.1" class="form-control" id="quantity" name="quantity" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="micron" class="form-label">Micron</label>
-                            <input type="number" step="0.1" class="form-control" id="micron" name="micron" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="grade" class="form-label">Grade</label>
-                            <select class="form-select" id="grade" name="grade" required>
-                                <option value="">Select Grade...</option>
-                                <option value="A">A (Premium)</option>
-                                <option value="B">B (High)</option>
-                                <option value="C">C (Standard)</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="price" class="form-label">Price per kg ($)</label>
-                             <input type="number" step="0.01" class="form-control" id="price" name="price" required min="0">
-                        </div>
-                        
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-plus-circle me-2"></i>Create Batch
-                        </button>
-                        <a href="dashboard.php" class="btn btn-secondary">Cancel</a>
-                    </form>
-                </div>
+            <div class="page-header d-flex align-items-center mb-4">
+                <img src="../assets/images/wool-icon.png" alt="Wool Icon" class="me-3" style="width: 40px; height: 40px;">
+                <h1 class="mb-0"><?php echo $pageTitle; ?></h1>
             </div>
 
+            <?php if ($success): ?>
+                <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <?php echo $success; ?>
+                </div>
+            <?php endif; ?>
+            <?php if ($error): ?>
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <?php echo $error; ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="card-title mb-4">
+                                <i class="fas fa-plus-circle text-primary me-2"></i>
+                                Enter New Batch Details
+                            </h5>
+                            <form method="POST" action="add_batch.php" class="mt-3">
+                                <div class="mb-4">
+                                    <label for="quantity" class="form-label fw-bold">
+                                        <i class="fas fa-balance-scale me-2 text-primary"></i>
+                                        Quantity (kg)
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-weight"></i></span>
+                                        <input type="number" step="0.1" class="form-control" id="quantity" name="quantity" required>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="micron" class="form-label fw-bold">
+                                        <i class="fas fa-ruler me-2 text-primary"></i>
+                                        Micron
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-microscope"></i></span>
+                                        <input type="number" step="0.1" class="form-control" id="micron" name="micron" required>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="grade" class="form-label fw-bold">
+                                        <i class="fas fa-star me-2 text-primary"></i>
+                                        Grade
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-certificate"></i></span>
+                                        <select class="form-select" id="grade" name="grade" required>
+                                            <option value="">Select Grade...</option>
+                                            <option value="A">A (Premium)</option>
+                                            <option value="B">B (High)</option>
+                                            <option value="C">C (Standard)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="price" class="form-label fw-bold">
+                                        <i class="fas fa-dollar-sign me-2 text-primary"></i>
+                                        Price per kg ($)
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
+                                        <input type="number" step="0.01" class="form-control" id="price" name="price" required min="0">
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                    <a href="dashboard.php" class="btn btn-outline-secondary me-md-2">
+                                        <i class="fas fa-times me-2"></i>Cancel
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-plus-circle me-2"></i>Create Batch
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center justify-content-center">
+                            <img src="../assets/images/wool-batch.jpg" alt="Wool Batch" class="img-fluid rounded shadow" style="max-height: 400px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 10px 15px;
+    }
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-right: none;
+    }
+    .form-control:focus, .form-select:focus {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+    .btn-primary {
+        padding: 10px 25px;
+        border-radius: 8px;
+    }
+    .btn-outline-secondary {
+        padding: 10px 25px;
+        border-radius: 8px;
+    }
+    .alert {
+        border-radius: 10px;
+        padding: 15px 20px;
+    }
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Client-side validation
@@ -161,4 +238,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-<?php include __DIR__ . '/../includes/footer.php'; ?> 
+<!-- <?php include __DIR__ . '/../includes/footer.php'; ?>  -->

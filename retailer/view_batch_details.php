@@ -213,7 +213,7 @@ function getStatusClass($status) {
         default => 'light'
     };
 }
-include __DIR__ . '/../includes/footer.php';
+// include __DIR__ . '/../includes/footer.php';
 ?>
 
 <script>

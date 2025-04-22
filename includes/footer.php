@@ -3,8 +3,10 @@
         <div class="row">
             <div class="col-lg-4 mb-4 mb-lg-0">
                 <div class="footer-brand mb-4">
-                    <img src="img/logo.png" alt="Woolify" height="40">
-                    <h5 class="mt-3">Woolify</h5>
+                    <div class="d-flex align-items-center space-x-3 mb-3">
+                        <img src="assets/images/logo.png" alt="Woolify" class="brand-logo">
+                        <span class="brand-text">Woolify</span>
+                    </div>
                     <p class="text-muted">Transforming the wool supply chain with transparency and efficiency.</p>
                 </div>
                 <div class="social-links">
@@ -114,6 +116,34 @@
             }
         });
     </script>
+
+<style>
+/* Footer Brand Styling */
+.footer-brand .brand-logo {
+    height: 40px;
+    width: auto;
+    border-radius: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.footer-brand:hover .brand-logo {
+    transform: scale(1.05);
+}
+
+.footer-brand .brand-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #0d6efd, #0dcaf0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 0.75rem;
+}
+
+.space-x-3 {
+    gap: 0.75rem;
+}
+</style>
 
 </body>
 </html>

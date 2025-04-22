@@ -88,11 +88,10 @@ include __DIR__ . '/includes/header.php';
     <?php 
     // Include the correct sidebar based on role
     if ($role === 'FARMER') {
-        include __DIR__ . '/includes/sidebar.php'; // Assuming one sidebar structure for now
+        include __DIR__ . '/includes/sidebar.php';
     } elseif ($role === 'RETAILER') {
-        include __DIR__ . '/includes/sidebar_retailer.php'; // Or include a different sidebar
+        include __DIR__ . '/includes/sidebar.php'; // Use the same sidebar for now
     } else {
-        // Default sidebar or error?
         include __DIR__ . '/includes/sidebar.php'; 
     }
     ?>
@@ -163,4 +162,4 @@ include __DIR__ . '/includes/header.php';
             </div>
         </main>
     </div>
-<?php include __DIR__ . '/includes/footer.php'; ?> 
+<!-- <?php include __DIR__ . '/includes/footer.php'; ?>  -->

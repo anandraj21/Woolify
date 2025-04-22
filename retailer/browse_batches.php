@@ -122,7 +122,7 @@ include __DIR__ . '/../includes/header.php';
                                         <td><span class="badge bg-<?php echo getQualityClass($batch['grade']); ?>"><?php echo getQualityLabel($batch['grade']); ?></span></td>
                                         <td>$<?php echo number_format((float)$batch['price_per_kg'], 2); ?></td>
                                         <td>
-                                            <a href="view_batch.php?id=<?php echo $batch['id']; ?>" class="btn btn-sm btn-outline-primary" title="View Details"><i class="fas fa-eye"></i></a>
+                                            <a href="view_batch_details.php?id=<?php echo $batch['id']; ?>" class="btn btn-sm btn-outline-primary" title="View Details"><i class="fas fa-eye"></i></a>
                                             <a href="initiate_purchase.php?batch_id=<?php echo $batch['id']; ?>" class="btn btn-sm btn-success ms-1" title="Initiate Purchase"><i class="fas fa-shopping-cart"></i></a>
                                         </td>
                                     </tr>
@@ -139,5 +139,5 @@ include __DIR__ . '/../includes/header.php';
 </div>
 <?php 
 // Remove helper functions from here
-include __DIR__ . '/../includes/footer.php'; 
+// include __DIR__ . '/../includes/footer.php'; 
 ?> 

@@ -94,6 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Register here
                     </a>
                 </p>
+                <p class="text-sm text-gray-600 mt-2">
+                    <a href="index.php" class="font-medium text-green-600 hover:text-green-500">
+                        <i class="fas fa-home"></i> Go to Home Page
+                    </a>
+                </p>
             </div>
         </div>
     </div>
